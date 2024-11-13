@@ -1,8 +1,9 @@
 from JenkinsPyLite.JenkinsPyLite import Server
+import secrets
 
 if __name__ == '__main__':
-    host = ('http://localhost:8081/')
-    credentials = ('mprenassi', '116f56cefde85d21acc3193f4356463e2b')
+    host = secrets.host
+    credentials = (secrets.id, secrets.token)
     server = Server(host, credentials)
     folder_list = server.get_job_folders()
     print(server.get_jobs(folder_list[2])[0]['name'])
