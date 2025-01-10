@@ -10,6 +10,7 @@ import json
 import time
 
 
+# Usage: server = Server("http...host" ("id", "token"))
 class Server:
     host = None
     credentials = None
@@ -109,3 +110,12 @@ class Server:
             type_of_build = kwargs.get('type_of_build', self.LAST_BUILD)
         job_path = f"{job_path}/{type_of_build}/"
         return self.get_job_info(job_path=job_path)
+
+    def get_console_info(self, job_path, *args, **kwargs):
+        if args:
+             type_of_build = args[0]
+        else:
+            type_of_build = kwargs.get('type_of_build', self.LAST_BUILD)
+        print(self.credentials)
+        response = self.session.get(f"{self.host}/job/{job_path}/lastBuild/logText/progressiveText?start=0", auth=self.credentials)
+        return response.text
